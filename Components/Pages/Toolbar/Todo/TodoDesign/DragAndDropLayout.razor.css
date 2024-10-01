@@ -1,0 +1,37 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* 2 kolumner */
+  gap: 0px;
+  /* Avstånd mellan rutorna */
+}
+
+.vertical-container {
+  display: flex;
+  flex-direction: column;
+  /* Ställ in riktningen till kolumn för att stapla boxarna */
+}
+
+.box {
+  padding: 20px;
+  text-align: center;
+}
+
+.box1 {
+  background-color: lightblue;
+  /* För box1 */
+  height: 300px;
+}
+
+.box2 {
+  background-color: lightgreen;
+  /* För box2 */
+  height: 300px;
+}
+
+.box3 {
+  background-color: lightcoral;
+  /* För box3 */
+  overflow: auto;
+  /* Tillåt scrollning om innehållet överskrider boxens höjd */
+}

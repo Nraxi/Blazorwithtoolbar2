@@ -1,0 +1,116 @@
+@page "/todo-listan"
+@using System.Collections.Generic
+@rendermode InteractiveServer
+
+<h3>Todo Lists</h3>
+
+<div class="todo-container">
+    <div>
+        <h4>Todo List 1</h4>
+        <input @bind="newTodo" placeholder="Add Task" />
+        <button @onclick="() => AddTodo(1)">Add to List 1</button>
+        <ul>
+            @foreach (var todo in todoList1)
+            {
+                <li>
+                    <span>@todo.Text</span>
+                    <button @onclick="() => MoveTodoToList(todo, 2)">Move to List 2</button>
+                    <button @onclick="() => MoveTodoToList(todo, 3)">Move to List 3</button>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div>
+        <h4>Todo List 2</h4>
+        <ul>
+            @foreach (var todo in todoList2)
+            {
+                <li>
+                    <span>@todo.Text</span>
+                    <button @onclick="() => MoveTodoToList(todo, 1)">Move to List 1</button>
+                    <button @onclick="() => MoveTodoToList(todo, 3)">Move to List 3</button>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div>
+        <h4>Todo List 3</h4>
+        <ul>
+            @foreach (var todo in todoList3)
+            {
+                <li>
+                    <span>@todo.Text</span>
+                    <button @onclick="() => MoveTodoToList(todo, 1)">Move to List 1</button>
+                    <button @onclick="() => MoveTodoToList(todo, 2)">Move to List 2</button>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code {
+    private string newTodo = string.Empty;
+    private List<TodoItem> todoList1 = new List<TodoItem>();
+    private List<TodoItem> todoList2 = new List<TodoItem>();
+    private List<TodoItem> todoList3 = new List<TodoItem>();
+
+    private void AddTodo(int listNumber)
+    {
+        if (!string.IsNullOrWhiteSpace(newTodo))
+        {
+            var todoItem = new TodoItem { Text = newTodo };
+            switch (listNumber)
+            {
+                case 1:
+                    todoList1.Add(todoItem);
+                    break;
+                case 2:
+                    todoList2.Add(todoItem);
+                    break;
+                case 3:
+                    todoList3.Add(todoItem);
+                    break;
+            }
+            newTodo = string.Empty; // Töm inputfältet
+            StateHasChanged();
+        }
+    }
+
+    private void MoveTodoToList(TodoItem todo, int targetListNumber)
+    {
+        // Ta bort todo från nuvarande lista
+        if (todoList1.Contains(todo))
+        {
+            todoList1.Remove(todo);
+        }
+        else if (todoList2.Contains(todo))
+        {
+            todoList2.Remove(todo);
+        }
+        else if (todoList3.Contains(todo))
+        {
+            todoList3.Remove(todo);
+        }
+
+        // Flytta todo till mål-listan
+        switch (targetListNumber)
+        {
+            case 1:
+                todoList1.Add(todo);
+                break;
+            case 2:
+                todoList2.Add(todo);
+                break;
+            case 3:
+                todoList3.Add(todo);
+                break;
+        }
+    }
+
+    public class TodoItem
+    {
+        public string? Text { get; set; }
+    }
+}

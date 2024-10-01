@@ -1,0 +1,88 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Blazorwithtoolbar2</a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="counter">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="weather">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+            </NavLink>
+        </div>
+
+        <!-- Överordnat element med undermeny -->
+        <div class="nav-item px-3">
+            <span class="nav-link" style="cursor: pointer;" onclick="toggleSubMenu(event)">Todo</span>
+            <div class="sub-menu" style="display: none;">
+                <NavLink class="nav-link" href="DragAndDropLayout">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Layout
+                </NavLink>
+                <NavLink class="nav-link" href="todo-listan">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> todo-listan
+                </NavLink>
+                <NavLink class="nav-link" href="TodoDragDrop">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> TodoDragDrop
+                </NavLink>
+                <NavLink class="nav-link" href="TodoDragDropWithInput">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> TodoDragDropWithInput
+                </NavLink>
+        
+        
+            </div>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="test">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Test
+            </NavLink>
+        </div>
+        
+    
+        
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="LayoutFlashy">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> LayoutFlashy
+            </NavLink>
+        </div>
+         <div class="nav-item px-3">
+            <NavLink class="nav-link" href="LayoutFlashy2">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> LayoutFlashy2
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+<script>
+    let activeSubMenu = null; // För att hålla reda på den aktiva undermenyn
+
+    function toggleSubMenu(event) {
+        const subMenu = event.target.nextElementSibling;
+
+        // Döljer den aktiva undermenyn om den är öppen
+        if (activeSubMenu && activeSubMenu !== subMenu) {
+            activeSubMenu.style.display = "none";
+        }
+
+        // Växlar synlighet på den valda undermenyn
+        subMenu.style.display = subMenu.style.display === "none" || !subMenu.style.display ? "block" : "none";
+
+        // Uppdaterar den aktiva undermenyn
+        activeSubMenu = subMenu.style.display === "block" ? subMenu : null;
+    }
+</script>

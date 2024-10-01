@@ -1,0 +1,131 @@
+@page "/TodoDragDropWithInput"
+@using System.Collections.Generic
+@rendermode InteractiveServer
+@namespace Blazorwithtoolbar2.Pages.Toolbar.Todo
+<h3>Todo Lists with Drag and Drop & Add Feature</h3>
+
+<div>
+    <input @bind="newTodoText" placeholder="Skriv en uppgift" />
+    <select @bind="selectedList">
+        <option value="1">Todo List 1</option>
+        <option value="2">Todo List 2</option>
+        <option value="3">Todo List 3</option>
+    </select>
+    <button @onclick="AddTodo">Lägg till</button>
+</div>
+
+<div class="todo-container">
+    <div class="list-container" ondragover="event.preventDefault()" @ondrop="(e) => OnDrop(1, e)">
+        <h4>Todo List 1</h4>
+        <ul>
+            @foreach (var todo in todoList1)
+            {
+                <li draggable="true" @ondragstart="(e) => OnDragStart(todo, e)">
+                    <span>@todo.Text</span>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="list-container" ondragover="event.preventDefault()" @ondrop="(e) => OnDrop(2, e)">
+        <h4>Todo List 2</h4>
+        <ul>
+            @foreach (var todo in todoList2)
+            {
+                <li draggable="true" @ondragstart="(e) => OnDragStart(todo, e)">
+                    <span>@todo.Text</span>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="list-container" ondragover="event.preventDefault()" @ondrop="(e) => OnDrop(3, e)">
+        <h4>Todo List 3</h4>
+        <ul>
+            @foreach (var todo in todoList3)
+            {
+                <li draggable="true" @ondragstart="(e) => OnDragStart(todo, e)">
+                    <span>@todo.Text</span>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code {
+ public List<TodoItem> TodoList1 => todoList1;
+    public List<TodoItem> TodoList2 => todoList2;
+    public List<TodoItem> TodoList3 => todoList3;
+
+    private string newTodoText = string.Empty;
+    private int selectedList = 1;
+    private TodoItem? draggedTodoItem;
+
+    private List<TodoItem> todoList1 = new List<TodoItem>
+    {
+        new TodoItem { Text = "Task 1" },
+        new TodoItem { Text = "Task 2" }
+    };
+
+    private List<TodoItem> todoList2 = new List<TodoItem>();
+    private List<TodoItem> todoList3 = new List<TodoItem>();
+
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodoText))
+        {
+            var newTodo = new TodoItem { Text = newTodoText };
+            switch (selectedList)
+            {
+                case 1:
+                    todoList1.Add(newTodo);
+                    break;
+                case 2:
+                    todoList2.Add(newTodo);
+                    break;
+                case 3:
+                    todoList3.Add(newTodo);
+                    break;
+            }
+            newTodoText = string.Empty; // Rensa inputfältet efter att uppgiften har lagts till
+        }
+    }
+
+    private void OnDragStart(TodoItem todo, DragEventArgs e)
+    {
+        draggedTodoItem = todo;
+    }
+
+    private void OnDrop(int targetListNumber, DragEventArgs e)
+    {
+        if (draggedTodoItem != null)
+        {
+            // Ta bort den dragna uppgiften från alla listor
+            todoList1.Remove(draggedTodoItem);
+            todoList2.Remove(draggedTodoItem);
+            todoList3.Remove(draggedTodoItem);
+
+            // Lägg till den i den nya listan
+            switch (targetListNumber)
+            {
+                case 1:
+                    todoList1.Add(draggedTodoItem);
+                    break;
+                case 2:
+                    todoList2.Add(draggedTodoItem);
+                    break;
+                case 3:
+                    todoList3.Add(draggedTodoItem);
+                    break;
+            }
+
+            draggedTodoItem = null;
+            StateHasChanged();
+        }
+    }
+
+    public class TodoItem
+    {
+        public string? Text { get; set; }
+    }
+}

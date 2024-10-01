@@ -1,0 +1,66 @@
+@page "/todo-list"
+@using System.Collections.Generic
+@rendermode InteractiveServer
+@namespace Blazorwithtoolbar2.Pages.Toolbar.Todo
+
+
+<h3>Todo List</h3>
+
+<input @bind="newTodo" placeholder="Lägg till en uppgift" />
+<button @onclick="AddTodo">Lägg till</button>
+
+<ul>
+    @foreach (var todo in todos)
+    {
+        <li>
+            @if (todo.IsEditing)
+            {
+                <input @bind="todo.Text" />
+                <button @onclick="() => SaveTodo(todo)">Spara</button>
+            }
+            else
+            {
+                <span>@todo.Text</span> <!-- Ta bort SelectTodo -->
+                <button @onclick="() => EditTodo(todo)">Redigera</button>
+                <button @onclick="() => RemoveTodo(todo)">Ta bort</button>
+            }
+        </li>
+    }
+</ul>
+
+@code {
+    private string newTodo = string.Empty; // Initialisera newTodo
+    private List<TodoItem> todos = new List<TodoItem>();
+
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodo))
+        {
+            todos.Add(new TodoItem { Text = newTodo });
+            Console.WriteLine($"Added Todo: {newTodo}");
+            newTodo = string.Empty; // Rensa inputfältet
+            StateHasChanged();
+        }
+    }
+
+    private void RemoveTodo(TodoItem todo)
+    {
+        todos.Remove(todo);
+    }
+
+    private void EditTodo(TodoItem todo)
+    {
+        todo.IsEditing = true;
+    }
+
+    private void SaveTodo(TodoItem todo)
+    {
+        todo.IsEditing = false;
+    }
+
+    public class TodoItem
+    {
+        public string? Text { get; set; } // Gör Text nullable
+        public bool IsEditing { get; set; } = false;
+    }
+}

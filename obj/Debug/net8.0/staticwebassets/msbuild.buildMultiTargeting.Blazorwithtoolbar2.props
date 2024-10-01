@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/Blazorwithtoolbar2.props" />
+</Project>

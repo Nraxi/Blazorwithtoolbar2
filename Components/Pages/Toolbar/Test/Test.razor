@@ -1,0 +1,14 @@
+@page "/test"
+@rendermode InteractiveServer
+@namespace Blazorwithtoolbar2.Pages.Toolbar.Test
+
+<h3>Test</h3>
+
+<button @onclick="TestClick">Test Knapp</button>
+
+@code {
+    private void TestClick()
+    {
+        Console.WriteLine("Test button clicked");
+    }
+}

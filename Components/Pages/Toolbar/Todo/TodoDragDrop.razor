@@ -1,0 +1,94 @@
+@page "/TodoDragDrop"
+@using System.Collections.Generic
+@rendermode InteractiveServer
+
+<h3>Todo Lists with Drag and Drop</h3>
+
+<div class="todo-container">
+    <div class="list-container" ondragover="event.preventDefault()" @ondrop="(e) => OnDrop(1, e)">
+        <h4>Todo List 1</h4>
+        <ul>
+            @foreach (var todo in todoList1)
+            {
+                <li draggable="true" @ondragstart="(e) => OnDragStart(todo, e)">
+                    <span>@todo.Text</span>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="list-container" ondragover="event.preventDefault()" @ondrop="(e) => OnDrop(2, e)">
+        <h4>Todo List 2</h4>
+        <ul>
+            @foreach (var todo in todoList2)
+            {
+                <li draggable="true" @ondragstart="(e) => OnDragStart(todo, e)">
+                    <span>@todo.Text</span>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="list-container" ondragover="event.preventDefault()" @ondrop="(e) => OnDrop(3, e)">
+        <h4>Todo List 3</h4>
+        <ul>
+            @foreach (var todo in todoList3)
+            {
+                <li draggable="true" @ondragstart="(e) => OnDragStart(todo, e)">
+                    <span>@todo.Text</span>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code {
+    private TodoItem? draggedTodoItem;
+    private List<TodoItem> todoList1 = new List<TodoItem>
+    {
+        new TodoItem { Text = "Task 1" },
+        new TodoItem { Text = "Task 2" }
+    };
+
+    private List<TodoItem> todoList2 = new List<TodoItem>();
+    private List<TodoItem> todoList3 = new List<TodoItem>();
+
+    private void OnDragStart(TodoItem todo, DragEventArgs e)
+    {
+        draggedTodoItem = todo;
+        Console.WriteLine($"Started dragging: {todo.Text}");
+    }
+
+    private void OnDrop(int targetListNumber, DragEventArgs e)
+    {
+        if (draggedTodoItem != null)
+        {
+            // Remove the dragged item from the current list
+            todoList1.Remove(draggedTodoItem);
+            todoList2.Remove(draggedTodoItem);
+            todoList3.Remove(draggedTodoItem);
+
+            // Add it to the new list
+            switch (targetListNumber)
+            {
+                case 1:
+                    todoList1.Add(draggedTodoItem);
+                    break;
+                case 2:
+                    todoList2.Add(draggedTodoItem);
+                    break;
+                case 3:
+                    todoList3.Add(draggedTodoItem);
+                    break;
+            }
+
+            draggedTodoItem = null; // Clear the dragged item
+            StateHasChanged(); // Force re-render
+        }
+    }
+
+    public class TodoItem
+    {
+        public string? Text { get; set; }
+    }
+}

@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "/Volumes/Disk 2 Projects/testproj/Blazorwithtoolbar2/obj/Debug/net8.0/scopedcss/projectbundle/Blazorwithtoolbar2.bundle.scp.css",
+      "PackagePath": "staticwebassets/Blazorwithtoolbar2.bundle.scp.css"
+    },
+    {
+      "Id": "/Volumes/Disk 2 Projects/testproj/Blazorwithtoolbar2/wwwroot/app.css",
+      "PackagePath": "staticwebassets/app.css"
+    },
+    {
+      "Id": "/Volumes/Disk 2 Projects/testproj/Blazorwithtoolbar2/wwwroot/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/Volumes/Disk 2 Projects/testproj/Blazorwithtoolbar2/wwwroot/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/Volumes/Disk 2 Projects/testproj/Blazorwithtoolbar2/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.Blazorwithtoolbar2.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.Blazorwithtoolbar2.props",
+      "PackagePath": "build\\Blazorwithtoolbar2.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Blazorwithtoolbar2.props",
+      "PackagePath": "buildMultiTargeting\\Blazorwithtoolbar2.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Blazorwithtoolbar2.props",
+      "PackagePath": "buildTransitive\\Blazorwithtoolbar2.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

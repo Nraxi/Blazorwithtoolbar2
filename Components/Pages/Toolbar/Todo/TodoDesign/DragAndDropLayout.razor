@@ -1,0 +1,19 @@
+@page "/DragAndDropLayout"
+@using Blazorwithtoolbar2.Pages.Toolbar.Test
+@using Blazorwithtoolbar2.Pages.Toolbar.Todo
+
+@rendermode InteractiveServer
+
+<div class="grid-container">
+    <div class="vertical-container">
+        <div class="box box1">Box 1</div>
+        <div class="box box2">Box 2 </div>
+    </div>
+    <div class="box box3">
+        <TodoDragDropWithInput />
+        <Test />  
+        <Todo /> 
+        <!-- <todoList1 /> -->
+    </div>
+</div>
+
